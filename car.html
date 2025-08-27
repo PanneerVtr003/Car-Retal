@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details - CarRent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>CarRent</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="cars.html" class="nav-link">Cars</a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.html" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="register.html" class="nav-link">Register</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="car-details">
+            <div class="container">
+                <div class="back-link">
+                    <a href="cars.html">← Back to Cars</a>
+                </div>
+
+                <div id="car-details-content" class="car-details-content">
+                    <!-- Car details will be loaded here -->
+                </div>
+
+                <div id="loading" class="loading">
+                    <p>Loading car details...</p>
+                </div>
+
+                <div id="car-not-found" class="error-message" style="display: none;">
+                    <h2>Car Not Found</h2>
+                    <p>The car you're looking for doesn't exist or has been removed.</p>
+                    <a href="cars.html" class="btn btn-primary">View All Cars</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CarRent</h3>
+                    <p>Your trusted car rental partner</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="cars.html">Cars</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@carrent.com</p>
+                    <p>Phone: +1 234 567 8900</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CarRent. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

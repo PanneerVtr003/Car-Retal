@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Rental Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 18px;
+        }
+        
+        .content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .booking-form {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .car-details {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .car-image {
+            width: 100%;
+            height: 200px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .car-title {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .car-specs {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .car-specs li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .car-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e74c3c;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .booking-summary {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .summary-title {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .total {
+            font-weight: 700;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+            color: #2c3e50;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-icon {
+            font-size: 50px;
+            color: #2ecc71;
+            margin-bottom: 15px;
+        }
+        
+        .modal h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .modal p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .modal-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .modal-btn:hover {
+            background: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Car Rental Booking</h1>
+            <p class="subtitle">Reserve your vehicle in just a few steps</p>
+        </header>
+        
+        <div class="content">
+            <div class="booking-form">
+                <h2 class="form-title">Booking Details</h2>
+                
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pickupDate">Pickup Date</label>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="returnDate">Return Date</label>
+                        <input type="date" id="returnDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pickupLocation">Pickup Location</label>
+                        <select id="pickupLocation" required>
+                            <option value="">Select a location</option>
+                            <option value="city-center">City Center</option>
+                            <option value="airport">Airport</option>
+                            <option value="train-station">Train Station</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests</label>
+                        <textarea id="specialRequests" rows="3" placeholder="Any special requirements..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Complete Booking</button>
+                </form>
+            </div>
+            
+            <div class="car-details">
+                <div class="car-image">
+                    <i class="fas fa-car-side" style="font-size: 48px;"></i>
+                </div>
+                
+                <h2 class="car-title">Toyota Camry 2022</h2>
+                
+                <ul class="car-specs">
+                    <li><span>Category:</span> <span>Sedan</span></li>
+                    <li><span>Transmission:</span> <span>Automatic</span></li>
+                    <li><span>Seats:</span> <span>5</span></li>
+                    <li><span>Fuel:</span> <span>Hybrid</span></li>
+                    <li><span>Mileage:</span> <span>Unlimited</span></li>
+                </ul>
+                
+                <div class="car-price">$45/day</div>
+                
+                <div class="booking-summary">
+                    <h3 class="summary-title">Booking Summary</h3>
+                    <div class="summary-item">
+                        <span>Rental Period:</span>
+                        <span id="rentalPeriod">0 days</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Daily Rate:</span>
+                        <span>$45.00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Tax (10%):</span>
+                        <span id="taxAmount">$0.00</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Amount:</span>
+                        <span id="totalAmount">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 CarRent. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your booking has been successfully completed. A confirmation email has been sent to your email address.</p>
+            <button class="modal-btn" id="modalOkBtn">OK</button>
+        </div>
+    </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const bookingForm = document.getElementById("bookingForm");
+
+    bookingForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        const formData = {
+            name: document.getElementById("fullName").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            pickupDate: document.getElementById("pickupDate").value,
+            returnDate: document.getElementById("returnDate").value,
+            location: document.getElementById("pickupLocation").value,
+            requests: document.getElementById("specialRequests").value
+        };
+
+        const submitBtn = bookingForm.querySelector("button");
+        submitBtn.textContent = "Processing...";
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch("http://localhost:5000/api/bookings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert(result.message);
+                bookingForm.reset();
+            } else {
+                alert("❌ Booking failed: " + result.error);
+            }
+        } catch (err) {
+            console.error(err);
+            alert("❌ Server error, please try again later.");
+        }
+
+        submitBtn.textContent = "Complete Booking";
+        submitBtn.disabled = false;
+    });
+});
+</script>
+
+
+
+
+
+</body>
+</html>
